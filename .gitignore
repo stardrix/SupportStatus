@@ -1,0 +1,10 @@
+# Build output
+bin/
+obj/
+publish/
+*.user
+.vs/
+
+# Runtime data written by the app (never commit real status data)
+SampleData/overrides/
+SampleData/hours/

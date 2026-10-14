@@ -1,0 +1,13 @@
+[
+  {"Id": "desk", "Name": "Central Service Desk", "Region": "Capital City", "PhoneNumber": "+00 000 000 100", "Email": "servicedesk@example.com", "Address": "100 Main Street, 1000 Capital City", "Pinned": true,
+   "Week": {"Monday": {"WalkIn": "", "Phone": "07:00-17:00"}, "Tuesday": {"WalkIn": "", "Phone": "07:00-17:00"}, "Wednesday": {"WalkIn": "", "Phone": "07:00-17:00"}, "Thursday": {"WalkIn": "", "Phone": "07:00-17:00"}, "Friday": {"WalkIn": "", "Phone": "07:00-16:00"}, "Saturday": {"WalkIn": "", "Phone": "09:00-13:00"}}},
+  {"Id": "hq", "Name": "Headquarters", "Region": "Capital City", "PhoneNumber": "+00 000 000 101", "Email": "support-hq@example.com", "Address": "1 Example Street, 1000 Capital City", "WalkInHours": "07:30-16:00", "PhoneHours": "07:30-16:30"},
+  {"Id": "north", "Name": "North Office", "Region": "Northtown", "PhoneNumber": "+00 000 000 102", "Email": "support-north@example.com", "Address": "2 Example Road, 2000 Northtown", "WalkInHours": "08:00-12:00", "PhoneHours": "08:00-15:00"},
+  {"Id": "south", "Name": "South Office", "Region": "Southville", "PhoneNumber": "+00 000 000 103", "Email": "support-south@example.com", "Address": "3 Sample Lane, 3000 Southville", "WalkInHours": "09:00-14:00", "PhoneHours": "08:00-16:00"},
+  {"Id": "east", "Name": "East Campus", "Region": "Eastfield", "PhoneNumber": "+00 000 000 104", "Email": "support-east@example.com", "Address": "4 Demo Avenue, 4000 Eastfield",
+   "Week": {"Monday": {"WalkIn": "09:00-12:00", "Phone": "09:00-15:00"}, "Tuesday": {"WalkIn": "09:00-12:00", "Phone": "09:00-15:00"}, "Wednesday": {"WalkIn": "09:00-12:00", "Phone": "09:00-15:00"}, "Thursday": {"WalkIn": "09:00-12:00", "Phone": "09:00-15:00"}, "Friday": {"WalkIn": "", "Phone": "09:00-12:00"}}},
+  {"Id": "harbor", "Name": "Harbor Site", "Region": "Port Example", "PhoneNumber": "+00 000 000 105", "Email": "support-harbor@example.com", "Address": "5 Quay Street, 5000 Port Example", "WalkInHours": "", "PhoneHours": "08:00-15:00"},
+  {"Id": "west", "Name": "West Depot", "Region": "Westbury", "PhoneNumber": "+00 000 000 106", "Email": "support-west@example.com", "Address": "6 Test Park, 6000 Westbury",
+   "Week": {"Monday": {"WalkIn": "", "Phone": "00:00-24:00"}, "Tuesday": {"WalkIn": "", "Phone": "00:00-24:00"}, "Wednesday": {"WalkIn": "", "Phone": "00:00-24:00"}, "Thursday": {"WalkIn": "", "Phone": "00:00-24:00"}, "Friday": {"WalkIn": "", "Phone": "00:00-24:00"}, "Saturday": {"WalkIn": "", "Phone": "00:00-24:00"}, "Sunday": {"WalkIn": "", "Phone": "00:00-24:00"}}},
+  {"Id": "lab", "Name": "Research Lab", "Region": "Science Park", "PhoneNumber": "", "Email": "support-lab@example.com", "Address": "7 Placeholder Way, 7000 Science Park", "WalkInHours": "10:00-12:00", "PhoneHours": "09:00-15:00"}
+]

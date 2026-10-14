@@ -1,0 +1,103 @@
+<Window x:Class="SupportStatus.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Support status" Width="330" Height="480"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="CanResizeWithGrip" Topmost="False" ShowInTaskbar="False"
+        FontFamily="Segoe UI" FontSize="13">
+    <Window.Resources>
+        <Style x:Key="CopyButton" TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="50"/>
+            <Setter Property="Padding" Value="6,1"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#3A404B"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Window.Resources>
+    <Border CornerRadius="10" Background="#F21E2127" BorderBrush="#33FFFFFF" BorderThickness="1">
+        <DockPanel Margin="12">
+            <!-- Header: title and buttons. Drag here to move the window -->
+            <Grid DockPanel.Dock="Top" MouseLeftButtonDown="Header_MouseDown" Background="Transparent">
+                <TextBlock Text="Support status" Foreground="White" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="AdminButton" Content="Set my status" Click="Admin_Click" Visibility="Collapsed"
+                            Padding="8,2" Margin="0,0,6,0" Background="#2E9E5B" Foreground="White" BorderThickness="0"/>
+                    <ToggleButton x:Name="PinButton" Content="📌" IsChecked="False" Click="Pin_Click" ToolTip="Always on top"
+                                  Width="26" Background="Transparent" Foreground="White" BorderThickness="0"/>
+                    <Button Content="–" Click="Hide_Click" ToolTip="Hide (open it again from the tray icon)"
+                            Width="26" Background="Transparent" Foreground="White" BorderThickness="0" FontWeight="Bold"/>
+                </StackPanel>
+            </Grid>
+
+            <TextBox x:Name="SearchBox" DockPanel.Dock="Top" Margin="0,10,0,8" Padding="6,4"
+                     Background="#2A2E36" Foreground="White" BorderBrush="#444" CaretBrush="White"
+                     TextChanged="Search_TextChanged" ToolTip="Search by name, town or address"/>
+
+            <TextBlock x:Name="FooterText" DockPanel.Dock="Bottom" Foreground="#99FFFFFF" FontSize="11" Margin="0,8,0,0"/>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="List">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{Binding RowBackground}" CornerRadius="6" Padding="8,6" Margin="0,0,0,4"
+                                    Cursor="Hand" MouseLeftButtonUp="Row_Click" ToolTip="{Binding Info}">
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Copy phone number" Click="CopyPhone_Click" Visibility="{Binding PhoneVisibility}"/>
+                                        <MenuItem Header="Copy email" Click="CopyEmail_Click" Visibility="{Binding EmailVisibility}"/>
+                                        <MenuItem Header="Copy address" Click="CopyAddress_Click" Visibility="{Binding AddressVisibility}"/>
+                                        <Separator/>
+                                        <MenuItem Header="★ Make this my location" Click="SetMine_Click"/>
+                                        <MenuItem Header="Remove star" Click="ClearMine_Click"/>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="18"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Ellipse Width="11" Height="11" Fill="{Binding StateBrush}" VerticalAlignment="Top" Margin="0,4,0,0"/>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{Binding Title}" Foreground="White" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Detail}" Foreground="#B3FFFFFF" FontSize="11" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="2" Text="{Binding StateText}" Foreground="{Binding StateBrush}"
+                                               FontWeight="Bold" FontSize="11" VerticalAlignment="Top" Margin="6,2,0,0"/>
+
+                                    <!-- Details: shown when the location is clicked -->
+                                    <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,6,0,0"
+                                                Visibility="{Binding DetailsVisibility}" Cursor="Arrow">
+                                        <Grid Visibility="{Binding PhoneVisibility}" Margin="0,2">
+                                            <TextBlock Text="{Binding PhoneLine}" Foreground="White" FontSize="12" VerticalAlignment="Center"/>
+                                            <Button Content="Copy" Tag="{Binding Phone}" Click="Copy_Click" Style="{StaticResource CopyButton}"/>
+                                        </Grid>
+                                        <Grid Visibility="{Binding EmailVisibility}" Margin="0,2">
+                                            <TextBlock Text="{Binding EmailLine}" Foreground="White" FontSize="12" VerticalAlignment="Center"
+                                                       TextTrimming="CharacterEllipsis" Margin="0,0,56,0"/>
+                                            <Button Content="Copy" Tag="{Binding Email}" Click="Copy_Click" Style="{StaticResource CopyButton}"/>
+                                        </Grid>
+                                        <Grid Visibility="{Binding AddressVisibility}" Margin="0,2">
+                                            <TextBlock Text="{Binding Address}" Foreground="White" FontSize="12" VerticalAlignment="Center"
+                                                       TextWrapping="Wrap" Margin="0,0,56,0"/>
+                                            <Button Content="Copy" Tag="{Binding Address}" Click="Copy_Click" Style="{StaticResource CopyButton}"/>
+                                        </Grid>
+                                        <TextBlock Text="{Binding HoursLine}" Foreground="#B3FFFFFF" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+</Window>

@@ -1,0 +1,72 @@
+<Window x:Class="SupportStatus.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Set location status" Width="480" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" FontFamily="Segoe UI" FontSize="13">
+    <StackPanel Margin="16">
+        <TextBlock Text="Location" FontWeight="SemiBold"/>
+        <ComboBox x:Name="LocationBox" DisplayMemberPath="Name" Margin="0,4,0,12" SelectionChanged="Location_Changed"/>
+
+        <TextBlock Text="Message (optional)" FontWeight="SemiBold"/>
+        <!-- Message box + button that saves the message on a status that is already set -->
+        <DockPanel Margin="0,4,0,2">
+            <Button x:Name="SaveMessageButton" DockPanel.Dock="Right" Content="Save message" Click="SaveMessage_Click"
+                    Padding="8,4" Margin="6,0,0,0"/>
+            <TextBox x:Name="MessageInput" Padding="4" KeyDown="Message_KeyDown"
+                     ToolTip="e.g. Out on a job / Back at 13:00"/>
+        </DockPanel>
+        <TextBlock Text="Type the message, then press a status. If a status is already set, press Save message (or Enter)."
+                   Foreground="Gray" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+        <!-- How long the manual status lasts. After that the opening hours apply again -->
+        <DockPanel Margin="0,0,0,12">
+            <TextBlock Text="Valid until" FontWeight="SemiBold" VerticalAlignment="Center" Width="80"/>
+            <ComboBox x:Name="UntilBox" AutomationProperties.Name="Valid until"/>
+        </DockPanel>
+
+        <UniformGrid Columns="3" Margin="0,0,0,8">
+            <Button Click="Open_Click" Margin="0,0,4,0" Padding="6" AutomationProperties.Name="Open">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="10" Height="10" Fill="#3DBE6E" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Open"/>
+                </StackPanel>
+            </Button>
+            <Button Click="Phone_Click" Margin="2,0" Padding="6" AutomationProperties.Name="Phone only">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="10" Height="10" Fill="#F0B429" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Phone only"/>
+                </StackPanel>
+            </Button>
+            <Button Click="Closed_Click" Margin="4,0,0,0" Padding="6" AutomationProperties.Name="Closed">
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="10" Height="10" Fill="#E5534B" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Closed"/>
+                </StackPanel>
+            </Button>
+        </UniformGrid>
+        <Button Content="Back to normal opening hours" Click="Clear_Click" Padding="6"/>
+
+        <!-- Phone forwarded to the central desk. Stays until the checkbox is cleared -->
+        <CheckBox x:Name="ForwardCheck" Margin="0,12,0,0" Checked="Forward_Changed" Unchecked="Forward_Changed">
+            <TextBlock x:Name="ForwardText" Text="The phone is forwarded to the Service Desk" FontWeight="SemiBold"/>
+        </CheckBox>
+        <TextBlock Text="Tick this when you forward your phone, e.g. when you leave. It stays, also overnight and at weekends, until you clear it."
+                   Foreground="Gray" FontSize="11" TextWrapping="Wrap" Margin="20,2,0,0"/>
+
+        <TextBlock x:Name="CurrentText" Margin="0,12,0,0" Foreground="Gray" TextWrapping="Wrap"/>
+        <TextBlock Text="A manual status lasts until midnight or the time chosen in &quot;Valid until&quot;. After that the opening hours apply again."
+                   Foreground="Gray" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
+
+        <!-- Opening hours per weekday. The rows are built in code (AdminWindow.xaml.cs, BuildHoursGrid) -->
+        <Separator Margin="0,14,0,10"/>
+        <TextBlock Text="Opening hours" FontWeight="SemiBold"/>
+        <TextBlock Text="Tick the days you offer walk-in or phone support. No tick = closed. 00:00-24:00 = all day."
+                   Foreground="Gray" FontSize="11" TextWrapping="Wrap" Margin="0,2,0,6"/>
+        <Grid x:Name="HoursGrid"/>
+        <DockPanel Margin="0,10,0,0">
+            <Button DockPanel.Dock="Left" Content="Copy Monday to Tue-Fri" Click="CopyMonday_Click" Padding="8,6"/>
+            <Button Content="Save opening hours" Click="SaveHours_Click" Padding="6" Margin="8,0,0,0"/>
+        </DockPanel>
+        <TextBlock x:Name="HoursText" Foreground="Gray" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
+    </StackPanel>
+</Window>
